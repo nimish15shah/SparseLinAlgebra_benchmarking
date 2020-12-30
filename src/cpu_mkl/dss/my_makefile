@@ -1,0 +1,18 @@
+
+env:
+	conda activate intel_mkl #this has to be run to get proper version of g++ compiler and avoid -libstd++ errors
+	export KMP_AFFINITY=verbose # for threading information
+
+	### Following can enable more than 4 parallel threads
+	### But it does not help MKL performance
+	# export MKL_DYNAMIC=FALSE
+	# export MKL_NUM_THREADS=8
+	# export KMP_AFFINITY=granularity=fine,compact,1,0
+
+full: 
+	rm -rf build
+	mkdir build
+	CC=icx CXX=icpx cmake . -B build
+	make
+
+
